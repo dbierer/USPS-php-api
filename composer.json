@@ -20,6 +20,10 @@
     },
     "autoload": {
         "psr-0": {
+            "USPS\\": "src/",
+            "Utility\\": "src/"
+        },
+        "psr-4": {
             "USPS\\": "vendor/",
             "Utility\\": "vendor/"
         }
