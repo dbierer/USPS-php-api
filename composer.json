@@ -24,8 +24,8 @@
             "Utility\\": "src/"
         },
         "psr-4": {
-            "USPS\\": "vendor/",
-            "Utility\\": "vendor/"
+            "USPS\\": "/",
+            "Utility\\": "/"
         }
     }
 }
