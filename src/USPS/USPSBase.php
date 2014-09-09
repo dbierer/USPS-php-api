@@ -1,6 +1,7 @@
 <?php
 namespace USPS;
 
+use Utility\Parsers\XML2Array;
 use Utility\Parsers\XMLParser;
 
 /**
@@ -286,10 +287,13 @@ class USPSBase {
   public function getResponse() {
     return $this->response;
   }
+
   /**
    * Set the headers
    *
-   * @param array the headers array
+   * @param string $headers
+   *
+   * @internal param \USPS\the $array headers array
    * @return facebookLib object
    */
   public function setHeaders( $headers='' ) {
