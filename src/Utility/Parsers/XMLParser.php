@@ -43,7 +43,7 @@ class XMLParser {
      * @param $format_output
      */
     public static function init($version = '1.0', $encoding = 'UTF-8', $format_output = true) {
-        self::$xml = new DomDocument($version, $encoding);
+        self::$xml = new \DomDocument($version, $encoding);
         self::$xml->formatOutput = $format_output;
 		self::$encoding = $encoding;
     }
@@ -52,7 +52,7 @@ class XMLParser {
      * Convert an Array to XML
      * @param string $node_name - name of the root node to be converted
      * @param array $arr - aray to be converterd
-     * @return DomDocument
+     * @return \DomDocument
      */
     public static function &createXML($node_name, $arr=array()) {
         $xml = self::getXMLRoot();
@@ -62,12 +62,15 @@ class XMLParser {
         return $xml;
     }
 
-    /**
-     * Convert an Array to XML
-     * @param string $node_name - name of the root node to be converted
-     * @param array $arr - aray to be converterd
-     * @return DOMNode
-     */
+  /**
+   * Convert an Array to XML
+   *
+   * @param string $node_name - name of the root node to be converted
+   * @param array  $arr       - aray to be converterd
+   *
+   * @throws \Exception
+   * @return \DOMNode
+   */
     private static function &convert($node_name, $arr=array()) {
 
         //print_arr($node_name);
@@ -79,7 +82,7 @@ class XMLParser {
             if(isset($arr['@attributes'])) {
                 foreach($arr['@attributes'] as $key => $value) {
                     if(!self::isValidTagName($key)) {
-                        throw new Exception('[XMLParser] Illegal character in attribute name. attribute: '.$key.' in node: '.$node_name);
+                        throw new \Exception('[XMLParser] Illegal character in attribute name. attribute: '.$key.' in node: '.$node_name);
                     }
                     $node->setAttribute($key, htmlspecialchars(self::bool2str($value), ENT_QUOTES, self::$encoding));
                 }
@@ -106,7 +109,7 @@ class XMLParser {
             // recurse to get the node for that key
             foreach($arr as $key=>$value){
                 if(!self::isValidTagName($key)) {
-                    throw new Exception('[XMLParser] Illegal character in tag name. tag: '.$key.' in node: '.$node_name);
+                    throw new \Exception('[XMLParser] Illegal character in tag name. tag: '.$key.' in node: '.$node_name);
                 }
                 if(is_array($value) && is_numeric(key($value))) {
                     // MORE THAN ONE NODE OF ITS KIND;
@@ -193,27 +196,31 @@ class XML2Array {
      * @param $format_output
      */
     public static function init($version = '1.0', $encoding = 'UTF-8', $format_output = true) {
-        self::$xml = new DOMDocument($version, $encoding);
+        self::$xml = new \DOMDocument($version, $encoding);
         self::$xml->formatOutput = $format_output;
 		self::$encoding = $encoding;
     }
 
-    /**
-     * Convert an XML to Array
-     * @param string $node_name - name of the root node to be converted
-     * @param array $arr - aray to be converterd
-     * @return DOMDocument
-     */
+  /**
+   * Convert an XML to Array
+   *
+   * @param $input_xml
+   *
+   * @throws \Exception
+   * @internal param string $node_name - name of the root node to be converted
+   * @internal param array $arr - aray to be converterd
+   * @return \DOMDocument
+   */
     public static function &createArray($input_xml) {
         $xml = self::getXMLRoot();
 		if(is_string($input_xml)) {
 			$parsed = $xml->loadXML($input_xml);
 			if(!$parsed) {
-				throw new Exception('[XML2Array] Error parsing the XML string.');
+				throw new \Exception('[XML2Array] Error parsing the XML string.');
 			}
 		} else {
 			if(get_class($input_xml) != 'DOMDocument') {
-				throw new Exception('[XML2Array] The input XML object should be of type: DOMDocument.');
+				throw new \Exception('[XML2Array] The input XML object should be of type: DOMDocument.');
 			}
 			$xml = self::$xml = $input_xml;
 		}
