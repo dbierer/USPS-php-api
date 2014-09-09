@@ -1,4 +1,6 @@
 <?php
+namespace USPS;
+
 /**
  * Load required classes
  */

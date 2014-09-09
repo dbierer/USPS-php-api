@@ -1,9 +1,6 @@
 <?php
-/**
- * Load required classes
- */
-require_once('USPSBase.php');
-require_once('USPSAddress.php');
+namespace USPS;
+
 /**
  * USPS Zip code lookup by city/state
  * used to find a zip code by city/state lookup
@@ -33,10 +30,13 @@ class USPSZipCodeLookup extends USPSBase {
   public function getPostFields() {
     return $this->addresses;
   }
+
   /**
    * Add Address to the stack
-   * @param USPSAddress object $data
-   * @param string $id the address unique id
+   *
+   * @param \USPS\USPSAddress $data
+   * @param string            $id the address unique id
+   *
    * @return void
    */
   public function addAddress(USPSAddress $data, $id=null) {
