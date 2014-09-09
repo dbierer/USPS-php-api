@@ -1,6 +1,6 @@
 <?php
 
-namespace Google\GeolocationBundle\DependencyInjection;
+namespace USPS\ApiBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
