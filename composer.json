@@ -15,6 +15,7 @@
             "role": "Developer"
         }
     ],
+    "license": "WTFPL",
     "require": {
         "php": ">=5.3.0"
     },
