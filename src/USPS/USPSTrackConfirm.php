@@ -32,6 +32,13 @@ class USPSTrackConfirm extends USPSBase {
   }
 
   /**
+   * Clears all added packages
+   */
+  public function clearPackages() {
+    $this->packages = array();
+  }
+
+  /**
    * Add Package to the stack
    * @param string $id the address unique id
    * @return void
