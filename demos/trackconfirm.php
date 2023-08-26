@@ -1,9 +1,13 @@
 <?php
-// Load the class
-require_once('../USPSTrackConfirm.php');
+// USAGE: trackconfirm.php USPS_USER USPS_PASSWORD
+// NOTE:  Be sure to run composer dump-autoload to update autoload file mapping
+require __DIR__ . '/../vendor/autoload.php';
+use USPS\USPSTrackConfirm;
 
 // Initiate and set the username provided from usps
-$tracking = new USPSTrackConfirm('xxxx');
+$user   = $argv[1] ?? $_GET['user'] ?? 'xxx';
+$pass   = $argv[2] ?? $_GET['password'] ?? '';
+$tracking = new USPSTrackConfirm($user, $pass);
 
 // During test mode this seems not to always work as expected
 $tracking->setTestMode(true);

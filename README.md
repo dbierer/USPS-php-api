@@ -13,6 +13,9 @@ This wrapper allows you to perform some basic calls to the USPS api. Some of the
 - Service Delivery Calculator
 - Confirm Tracking
 
+Be sure to read through the USPS develeloper documentation first!
+* https://www.usps.com/business/web-tools-apis/general-api-developer-guide.htm
+
 
 Requirements
 ============
@@ -26,6 +29,18 @@ Examples
 =======
 
 Please check the 'demos' directory for usage examples on the various types of api calls and actions you can perform.
+To run the demos you'll need to refresh Composer autoloading:
+```
+wget https://getcomposer.org/composer.phar
+php composer.phar dump-autoload
+```
+
+To run via the built-in PHP web server:
+* Run this command from the root directory of this project:
+```
+php -S localhost:8888
+```
+* From your browser: `http://localhost:8888`
 
 
 Authors

@@ -11,13 +11,17 @@ use Utility\Parsers\XMLParser;
  * @author Vincent Gabriel
  */
 class USPSBase {
-  const LIVE_API_URL = 'http://production.shippingapis.com/ShippingAPI.dll';
-  const TEST_API_URL = 'http://production.shippingapis.com/ShippingAPITest.dll';
+  const LIVE_API_URL = 'https://stg-secure.shippingapis.com/shippingapi.dll';
+  const TEST_API_URL = 'https://secure.shippingapis.com/shippingapi.dll';
 
   /**
    * @var string - the usps username provided by the usps website
    */
   protected $username = '';
+  /**
+   * @var string - the usps password provided by the usps website
+   */
+  protected $password = '';
   /**
    *  the error code if one exists
    * @var integer
@@ -94,9 +98,11 @@ class USPSBase {
   /**
    * Constructor
    * @param string $username - the usps api username
+   * @param string $password - the usps api password
    */
-  public function __construct($username='') {
+  public function __construct($username='', $password='') {
     $this->username = $username;
+    $this->password = $password;
   }
   /**
    * set the usps api username we are going to user
@@ -201,10 +207,15 @@ class USPSBase {
    */
   protected function getXMLString() {
     // Add in the defaults
-    $postFields = array(
-      '@attributes' => array('USERID' => $this->username),
-    );
-
+    if (!empty($this->password)) {
+        $postFields = array(
+          '@attributes' => array('USERID' => $this->username, 'PASSWORD' => $this->password),
+        );
+    } else {
+        $postFields = array(
+          '@attributes' => array('USERID' => $this->username),
+        );
+    }
     // Add in the sub class data
     $postFields = array_merge($postFields, $this->getPostFields());
 

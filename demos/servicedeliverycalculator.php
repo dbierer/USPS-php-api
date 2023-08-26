@@ -1,9 +1,13 @@
 <?php
-// Load the class
-require_once('../USPSServiceDeliveryCalculator.php');
+// USAGE: servicedeliverycalculator.php USPS_USER USPS_PASSWORD
+// NOTE:  Be sure to run composer dump-autoload to update autoload file mapping
+require __DIR__ . '/../vendor/autoload.php';
+use USPS\USPSServiceDeliveryCalculator;
 
 // Initiate and set the username provided from usps
-$delivery = new USPSServiceDeliveryCalculator('xxxx');
+$user   = $argv[1] ?? $_GET['user'] ?? 'xxx';
+$pass   = $argv[2] ?? $_GET['password'] ?? '';
+$delivery = new USPSServiceDeliveryCalculator($user, $pass);
 
 // During test mode this seems not to always work as expected
 $delivery->setTestMode(true);

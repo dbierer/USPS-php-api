@@ -1,10 +1,17 @@
 <?php
+// USAGE: open_label.php USPS_USER USPS_PASSWORD
+// NOTE: APIs that return printed labels or barcodes become available after applying for advanced permissions from the USPS APIs Functional Team.
+//       Be sure to run composer dump-autoload to update autoload file mapping
+require __DIR__ . '/../vendor/autoload.php';
+use USPS\USPSOpenDistributeLabel;
 
-// Load the class
-require_once('../USPSOpenDistributeLabel.php');
 // Initiate and set the username provided from usps
-$label = new USPSOpenDistributeLabel('xxxx');
+$user   = $argv[1] ?? $_GET['user'] ?? 'xxx';
+$pass   = $argv[2] ?? $_GET['password'] ?? '';
+$label = new USPSOpenDistributeLabel($user, $pass);
 
+// During test mode this seems not to always work as expected
+$label->setTestMode(true);
 
 $label->setFromAddress('John', 'Doe', '', '5161 Lankershim Blvd', 'North Hollywood', 'CA', '91601', '# 204');
 $label->setToAddress('Vincent Gabriel', '5440 Tujunga Ave', 'North Hollywood', 'CA', '91601', '707');

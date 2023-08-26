@@ -1,12 +1,14 @@
 <?php
-// Load the class
-require_once('../USPSZipCodeLookup.php');
+// Load the class; use Composer autoloader
+// NOTE:  Be sure to run composer dump-autoload to update autoload file mapping
+require __DIR__ . '/../vendor/autoload.php';
+use USPS\USPSZipCodeLookup;
 
 // Initiate and set the username provided from usps
 $zipcode = new USPSZipCodeLookup('xxxx');
 
 // During test mode this seems not to always work as expected
-//$verify->setTestMode(true);
+$verify->setTestMode(true);
 
 // Create new address object and assign the properties
 // apartently the order you assign them is important so make sure

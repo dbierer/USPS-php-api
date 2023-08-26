@@ -1,12 +1,15 @@
 <?php
-// Load the class
-require_once('../USPSCityStateLookup.php');
+// USAGE: citystatelookup.php USPS_USER
+// NOTE:  Be sure to run composer dump-autoload to update autoload file mapping
+require __DIR__ . '/../vendor/autoload.php';
+use USPS\USPSCityStateLookup;
 
 // Initiate and set the username provided from usps
-$verify = new USPSCityStateLookup('xxxx');
+$user   = $argv[1] ?? $_GET['user'] ?? 'xxx';
+$verify = new USPSCityStateLookup($user);
 
 // During test mode this seems not to always work as expected
-//$verify->setTestMode(true);
+$verify->setTestMode(true);
 
 // Add the zip code we want to lookup the city and state
 $verify->addZipCode('91730');

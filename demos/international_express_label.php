@@ -1,18 +1,18 @@
 <?php
+// USAGE: international_express_label.php USPS_USER USPS_PASSWORD ExpressMailIntl|PriorityMailIntl|FirstClassMailIntl
+// NOTE: APIs that return printed labels or barcodes become available after applying for advanced permissions from the USPS APIs Functional Team.
+//       Be sure to run composer dump-autoload to update autoload file mapping
+require __DIR__ . '/../vendor/autoload.php';
+use USPS\USPSInternationalLabel;
 
-// Load the class
-require_once('../USPSInternationalLabel.php');
 // Initiate and set the username provided from usps
-$label = new USPSInternationalLabel('xxxx');
+$user   = $argv[1] ?? $_GET['user'] ?? 'xxx';
+$pass   = $argv[2] ?? $_GET['password'] ?? '';
+$version = $argv[3] ?? $_GET['version'] ?? 'ExpressMailIntl';
+$label = new USPSInternationalLabel($user, $pass);
 
 // Express by default
-$label->setApiVersion('ExpressMailIntl');
-
-// PriorityMailIntl
-$label->setApiVersion('PriorityMailIntl');
-
-// FirstClassMailIntl
-$label->setApiVersion('FirstClassMailIntl');
+$label->setApiVersion($version);
 
 // During test mode this seems not to always work as expected
 $label->setTestMode(true);
